@@ -55,10 +55,22 @@ class Heap {
         return max;
     }
     remove(p) {
-
+        this._swap(p, this.arr.length - 1);
+        this.arr.pop();
+        this.size--;
+        this._sink(p);
     }
-    changePriority(it, p) {
-
+    changePriority(index, priority) {
+        if (priority > this.arr[index]) {
+            this.arr[index] = priority;
+            this._swim(index);
+        } else if (priority < this.arr[index]) {
+            this.arr[index] = priority;
+            this._sink(index);
+        } else {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -68,11 +80,7 @@ h.insert(3);
 h.insert(10);
 h.insert(8);
 h.insert(7);
-
 h.insert(2);
 h.insert(7);
-console.log(h.extractMax());
-console.log(h.extractMax());
-console.log(h.extractMax());
-console.log(h.extractMax());
-console.log(h.extractMax());
+h.remove(1);
+h.changePriority(0, 1)
