@@ -1,6 +1,6 @@
 class Heap {
     static getParent(index) {
-        return index % 2 === 0 ? (index - 2) / 2 : (index - 1) / 2;
+        return Math.floor((index - 1) / 2);
     }
     static getChild(index) {
         return {
