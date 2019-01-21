@@ -39,28 +39,32 @@ class Heap {
         }
     }
     getMax() {
-        return this.arr[0];
+        return this.size > 0 ? this.arr[0] : false;
     }
-    insert(p) {
-        this.arr.push(p);
+    insert(priority) {
+        this.arr.push(priority);
         this._swim(this.arr.length - 1);
         this.size++;
         return true;
     }
     extractMax() {
+        if (this.size === 0) return false;
         this._swap(0, this.arr.length - 1);
         const max = this.arr.pop();
         this.size--;
         this._sink(0);
         return max;
     }
-    remove(p) {
-        this._swap(p, this.arr.length - 1);
+    remove(index) {
+        if (index >= this.size || index < 0) return false;
+        this._swap(index, this.arr.length - 1);
         this.arr.pop();
         this.size--;
-        this._sink(p);
+        this._sink(index);
+        return true;
     }
     changePriority(index, priority) {
+        if (index >= this.size || index < 0) return false;
         if (priority > this.arr[index]) {
             this.arr[index] = priority;
             this._swim(index);
